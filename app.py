@@ -68,13 +68,13 @@ class UserByID(Resource):
         return {"error": "User not found"}, 404    
     
 class Expenses(Resource):
-    @jwt_required()
+    # @jwt_required()
     def get(self):
         expenses = Expense.query.all()
         expenses = [expense.to_dict() for expense in expenses]
         return expenses
     
-    @jwt_required()
+    # @jwt_required()
     def post(self):
         data = request.get_json()
         new_expense = Expense(
@@ -90,7 +90,7 @@ class Expenses(Resource):
         return jsonify({"success": "Expense created successfully"})
         
 class ExpensesByID(Resource):
-    @jwt_required() 
+    # @jwt_required() 
     def get(self, id):  
         expense = Expense.query.filter_by(id=id).first()
         if expense:
@@ -98,7 +98,7 @@ class ExpensesByID(Resource):
             return expense, 200
         return {"error": "Expense not found"}, 404
     
-    @jwt_required()
+    # @jwt_required()
     def patch(self, id):
         expense = Expense.query.filter_by(id=id).first()
         if expense:
@@ -112,7 +112,7 @@ class ExpensesByID(Resource):
             db.session.commit()
             return jsonify({"message": "expense updated successfully"})
         return {"error": "Expense not found"}, 404    
-    @jwt_required()
+    # @jwt_required()
     def delete(self, id):
         expense = Expense.query.filter_by(id=id).first()
         if expense:
@@ -122,13 +122,13 @@ class ExpensesByID(Resource):
         return {"error": "Expense not found"}, 404
 
 class Budgets(Resource):
-    @jwt_required() 
+    # @jwt_required() 
     def get(self):
         budgets = Budget.query.all()
         budgets = [budget.to_dict() for budget in budgets]
         return budgets
     
-    @jwt_required()
+    # @jwt_required()
     def post(self):
         data = request.get_json()
         new_budget = Budget(
@@ -141,7 +141,7 @@ class Budgets(Resource):
         return jsonify({"success": "Budget created successfully"})    
 
 class BudgetByID(Resource):
-    @jwt_required()
+    # @jwt_required()
     def get(self, id):
         budget = Budget.query.filter_by(id=id).first()
         if budget:
@@ -149,7 +149,7 @@ class BudgetByID(Resource):
             return budget, 200
         return {"error": "Budget not found"}, 404
         
-    @jwt_required()
+    # @jwt_required()
     def patch(self, id):
         budget = Budget.query.filter_by(id=id).first()
         if budget:
@@ -160,7 +160,7 @@ class BudgetByID(Resource):
             return jsonify({"message": "budget updated successfully"})
         return {"error": "Budget not found"}, 404
     
-    @jwt_required()
+    # @jwt_required()
     def delete(self, id):
         budget = Budget.query.filter_by(id=id).first()
         if budget:
@@ -170,13 +170,13 @@ class BudgetByID(Resource):
         return {"error": "Budget not found"}, 404
     
 class Categories(Resource):
-    @jwt_required() 
+    # @jwt_required() 
     def get(self):
         categories = Category.query.all()
         categories = [category.to_dict() for category in categories]
         return categories
     
-    @jwt_required()
+    # @jwt_required()
     def post(self):
         data = request.get_json()
         new_category = Category(
