@@ -11,8 +11,8 @@ from flask import request, session,make_response, jsonify
 from flask_bcrypt import Bcrypt
 from datetime import timedelta
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required, current_user
-# from app import Login
 from models import db
+
 
 
 app = Flask(__name__)
@@ -25,6 +25,9 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=1)
 app.config["SECRET_KEY"] = "JKSRVHJVFBSRDFV"+str(random.randint(1,1000000000000))
 app.json.compact = False
 CORS(app)
+
+
+
 migrate = Migrate(app, db)
 db.init_app(app)
 
