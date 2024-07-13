@@ -68,13 +68,13 @@ class UserByID(Resource):
         return {"error": "User not found"}, 404    
     
 class Expenses(Resource):
-     
+    @jwt_required()
     def get(self):
         expenses = Expense.query.all()
         expenses = [expense.to_dict() for expense in expenses]
         return expenses
     
-    
+    @jwt_required()
     def post(self):
         data = request.get_json()
         new_expense = Expense(
