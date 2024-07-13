@@ -1,10 +1,11 @@
+
 from config import *
 from models import User,Expense, Budget, Category
 
 class Register(Resource):
     def post(self):
         data = request.get_json()
-        
+        # current_user_id =get_jwt_identity()
         new_user = User(
             email = data.get("email"),
             name = data.get("name"),
@@ -29,6 +30,7 @@ class Login(Resource):
 class Users(Resource):
     @jwt_required()
     def get(self):
+        # current_user_id =get_jwt_identity()
         users = User.query.all()
         users = [user.to_dict() for user in users]
         return users
@@ -184,20 +186,8 @@ class Categories(Resource):
         db.session.commit()
         return jsonify({"success": "Category created successfully"}) 
 
-
-
-
     
 
-
-    
-
-    
-        
-
-    
-
- 
 
     
 api.add_resource(Register, '/register')
@@ -213,3 +203,4 @@ api.add_resource(Categories, '/categories')
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
+
