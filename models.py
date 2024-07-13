@@ -53,8 +53,8 @@ class User(db.Model, SerializerMixin):
 class Expense(db.Model, SerializerMixin):
     _tablename_ = 'expense'
     id = db.Column(db.Integer, primary_key = True)
-    expense_name = db.Column(db.String)
-    expense_amount = db.Column(db.Integer)
+    description = db.Column(db.String)
+    amount = db.Column(db.Integer)
     date = db.Column(db.String)
     paymode=db.Column(db.String)
     category=db.Column(db.String)

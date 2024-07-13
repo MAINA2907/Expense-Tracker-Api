@@ -18,8 +18,8 @@ with app.app_context():
     u1 = User(email = "dan@gmail.com", name= "dan", password= '12345678')
     u2 = User(email = 'example@gmail.com', name = 'example', password = "12345")
 
-    e1 = Expense(expense_name= 'clothes', expense_amount = 2000, date= "12/2/1242", paymode = "mpesa", category= "Food")
-    e2 = Expense(expense_name= 'ugalimatumbo', expense_amount = 2000, date= "12/2/2024", paymode = "mpesa", category= "Food")
+    e1 = Expense(description= 'clothes', amount = 2000, date= "12/2/1242", paymode = "mpesa", category= "Food")
+    e2 = Expense(description= 'ugalimatumbo', amount = 2000, date= "12/2/2024", paymode = "mpesa", category= "Food")
 
     b1 = Budget(budget_name = "stima", amount= 300)
     b2 = Budget(budget_name = "rent", amount= 3000)
