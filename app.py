@@ -1,4 +1,5 @@
 
+
 from config import *
 from models import User,Expense, Budget, Category
 
@@ -185,9 +186,7 @@ class Categories(Resource):
         db.session.add(new_category)
         db.session.commit()
         return jsonify({"success": "Category created successfully"}) 
-
-    
-
+ 
 
     
 api.add_resource(Register, '/register')
@@ -203,4 +202,3 @@ api.add_resource(Categories, '/categories')
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
-
