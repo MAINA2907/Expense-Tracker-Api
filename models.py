@@ -80,8 +80,8 @@ class Expense(db.Model, SerializerMixin):
 class Budget(db.Model, SerializerMixin):
     _tablename_ = "budget"
     id = db.Column(db.Integer, primary_key = True)
-    budget_amount = db.Column(db.Integer)
-    budget_name = db.Column(db.String)
+    amount = db.Column(db.Integer)
+    name = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     user = db.relationship('User', back_populates = "budgets")
@@ -94,7 +94,7 @@ class Budget(db.Model, SerializerMixin):
         return amount
     
     def _repr_(self):
-        return f'<Budget {self.id}, {self.budget_name}, {self.budget_amount}>'
+        return f'<Budget {self.id}, {self.name}, {self.amount}>'
 
 
 
