@@ -78,8 +78,8 @@ class Expenses(Resource):
     def post(self):
         data = request.get_json()
         new_expense = Expense(
-            expense_name=data.get('expense_name'),
-            expense_amount=data.get('expense_amount'),
+            description=data.get('description'),
+            amount=data.get('amount'),
             date=data.get('date'),
             paymode=data.get("paymode"),
             category=data.get("category"),
@@ -103,8 +103,8 @@ class ExpensesByID(Resource):
         expense = Expense.query.filter_by(id=id).first()
         if expense:
             data = request.get_json()
-            expense.expense_name = data.get("expense_name")
-            expense.expense_amount = data.get("expense_amount")
+            expense.description = data.get("description")
+            expense.amount = data.get("amount")
             expense.date = data.get("date")
             expense.paymode = data.get("paymode")
             expense.category = data.get("category")
@@ -133,7 +133,7 @@ class Budgets(Resource):
         data = request.get_json()
         new_budget = Budget(
             amount=data.get('amount'),
-            budget_name=data.get('budget_name'),
+            name=data.get('name'),
             user_id=data.get('user_id')
         )
         db.session.add(new_budget)
@@ -154,7 +154,7 @@ class BudgetByID(Resource):
         budget = Budget.query.filter_by(id=id).first()
         if budget:
             data = request.get_json()
-            budget.budget_name = data.get("budget_name")
+            budget.name = data.get("name")
             budget.amount = data.get("amount")
             db.session.commit()
             return jsonify({"message": "budget updated successfully"})
