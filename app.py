@@ -29,7 +29,7 @@ class Login(Resource):
         return {"error":"Invalid email or password"}, 400
 
 class Users(Resource):
-    # @jwt_required()
+    @jwt_required()
     def get(self):
         # current_user_id =get_jwt_identity()
         users = User.query.all()
@@ -39,14 +39,14 @@ class Users(Resource):
 
     
 class UserByID(Resource):
-    # @jwt_required()
+    @jwt_required()
     def get(self,id):        
         user = User.query.filter_by(id=id).first()
         if user:
             user = user.to_dict()
             return user, 200
         return {"error": "User not found"}, 404
-    # @jwt_required()
+    @jwt_required()
     def patch(self, id):
         user = User.query.filter_by(id=id).first()
         data = request.get_json()
@@ -58,7 +58,7 @@ class UserByID(Resource):
             return jsonify({"messasge": "user updated successfully"})
         return{"error": "user not found"}, 404
     
-    # @jwt_required()
+    @jwt_required()
     def delete(self, id):
         user = User.query.filter_by(id=id).first()
         if user:
