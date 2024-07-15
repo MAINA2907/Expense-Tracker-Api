@@ -109,7 +109,7 @@ class Expenses(Resource):
         )
         db.session.add(new_expense)
         db.session.commit()
-        return jsonify({"success": "Expense created successfully"})
+        return make_response(new_expense.to_dict(),200)
         
 class ExpensesByID(Resource):
     # @jwt_required() 
