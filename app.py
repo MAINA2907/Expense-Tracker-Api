@@ -3,6 +3,17 @@
 from config import *
 from models import User,Expense, Budget, Category
 
+@jwt.user_identity_loader
+def user_identity_lookup(user):
+    return user.id
+
+@jwt.user_lookup_loader
+def user_lookup_callback(_jwt_header,jwt_data):
+    identity= jwt_data["sub"]
+    return User.query.filter_by(id = identity).one_or_none()
+
+
+
 class Register(Resource):
     def post(self):
         data = request.get_json()
@@ -14,7 +25,9 @@ class Register(Resource):
         )
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({'success':'user created successfully'})
+        access_token = create_access_token(identity=new_user)
+        return make_response({"access_token": access_token, "user":new_user.to_dict()})
+
 
 class Login(Resource):
     def post(self):
@@ -24,9 +37,18 @@ class Login(Resource):
 
         user = User.query.filter_by(email=email).first()
         if user and bcrypt.check_password_hash(user.password, password):
-            access_token = create_access_token(identity=user.id)
-            return {"access_token": access_token}
+            access_token = create_access_token(identity=user)
+            return make_response({"access_token": access_token, "user": user.to_dict()})
         return {"error":"Invalid email or password"}, 400
+
+class CheckLogin(Resource):
+    @jwt_required()
+    def get (self):
+        return make_response(current_user.to_dict(), 200)
+    
+
+
+
 
 class Users(Resource):
     # @jwt_required()
@@ -198,7 +220,7 @@ api.add_resource(ExpensesByID, '/expenses/<int:id>')
 api.add_resource(Budgets, '/budgets')
 api.add_resource(BudgetByID, '/budgets/<int:id>')
 api.add_resource(Categories, '/categories')
-
+api.add_resource(CheckLogin, '/check_login')
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
