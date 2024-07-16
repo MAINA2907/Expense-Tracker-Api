@@ -160,7 +160,7 @@ class Budgets(Resource):
         )
         db.session.add(new_budget)
         db.session.commit()
-        return jsonify({"success": "Budget created successfully"})    
+        return make_response(new_budget.to_dict(), 201)    
 
 class BudgetByID(Resource):
     # @jwt_required()
